@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Employer {
+  id            Int        @id @default(autoincrement())
+  name          String
+  has_hour_base Boolean
+  employees     Employee[]
+}
+
+model Employee {
+  id          Int      @id @default(autoincrement())
+  name        String
+  is_pj       Boolean
+  employer_id Int
+  employer    Employer @relation(fields: [employer_id], references: [id])
+  pontos      Pontos[]
+}
+
+model Pontos {
+  id          Int      @id @default(autoincrement())
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  location    String
+  employee_id Int
+  employee    Employee @relation(fields: [employee_id], references: [id])
+}
