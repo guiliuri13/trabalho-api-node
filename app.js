@@ -34,4 +34,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// log de inicialização
+console.log('Servidor iniciado na porta 3000');
+
 module.exports = app;
