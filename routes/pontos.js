@@ -6,6 +6,10 @@ router.get('/', function(req, res, next) {
   PontoController.listPontos(req, res)
 });
 
+router.get('/employee/:id', function(req, res, next) {
+  PontoController.listPontosByEmployee(req, res)
+});
+
 router.post('/create', function(req, res, next) {
   PontoController.createPonto(req, res)
 });

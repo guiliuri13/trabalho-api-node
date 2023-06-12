@@ -9,6 +9,16 @@ class PontoModel {
         return pontos;
     }
 
+    async getPontosByEmployee(employee_id) {
+        let pontos = await prisma.pontos.findMany({
+            where: {
+                employee_id: employee_id
+            }
+        });
+
+        return pontos;
+    }
+
     async createPonto(location, employee_id) {
         let ponto = await prisma.pontos.create({
             data: {
