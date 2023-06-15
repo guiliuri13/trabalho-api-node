@@ -56,6 +56,9 @@ class EmployeeModel {
         let employee = await prisma.employee.findUnique({
             where: {
                 id: id
+            },
+            include: {
+                pontos: true
             }
         });
 
