@@ -1,20 +1,27 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+let createError = require('http-errors');
+let express = require('express');
+let path = require('path');
+let cookieParser = require('cookie-parser');
+let logger = require('morgan');
+let cors = require('cors');
 
-var employeeRouter = require('./routes/employee');
-var employerRouter = require('./routes/employer');
-var pontoRouter = require('./routes/pontos');
+let employeeRouter = require('./routes/employee');
+let employerRouter = require('./routes/employer');
+let pontoRouter = require('./routes/pontos');
 
-var app = express();
+let app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+const corsOption = {
+  origin: '*',
+};
+
+app.use(cors(corsOption));
 
 app.use('/employee', employeeRouter);
 app.use('/employer', employerRouter);
