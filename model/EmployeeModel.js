@@ -4,11 +4,11 @@ const prisma = new PrismaClient();
 
 class EmployeeModel {
     async getAllEmployees() {
-        let employees = await prisma.employee.findMany({
-            include: {
-                pontos: true
-            }
-        });
+        let employees = await prisma.$queryRaw`
+            SELECT employee.*, pontos.*
+            FROM employee
+            JOIN pontos ON employee.id = pontos.employee_id;
+        `;
 
         return employees;
     }
