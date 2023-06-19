@@ -15,6 +15,7 @@ model Employer {
   name          String
   has_hour_base Boolean
   employees     Employee[]
+  managers      Manager[]
 }
 
 model Employee {
@@ -33,4 +34,11 @@ model Pontos {
   location    String
   employee_id Int
   employee    Employee @relation(fields: [employee_id], references: [id])
+}
+
+model Manager {
+  id          Int      @id @default(autoincrement())
+  name        String
+  employer_id Int
+  employer    Employer @relation(fields: [employer_id], references: [id])
 }
