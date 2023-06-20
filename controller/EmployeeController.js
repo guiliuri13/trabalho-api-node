@@ -20,9 +20,9 @@ class EmployeeController {
     }
 
     async updateEmployee(req, res) {
-        let { id, name, email, phone } = req.body;
+        let { id, name, phone } = req.body;
 
-        let emp = await EmployeeModel.updateEmployee(id, name, email, phone);
+        let emp = await EmployeeModel.updateEmployee(id, name, phone);
 
         res.json(emp);
     }
