@@ -86,9 +86,10 @@ class PontoController {
     }
 
     async updatePonto(req, res) {
-        let { location, employee_id, new_date } = req.body;
+        let { location, employee_id, new_date } = req.body,
+            id = +req.params['id'];
 
-        let pts = await PontoModel.updatePonto(location, employee_id, new_date);
+        let pts = await PontoModel.updatePonto(id, location, employee_id, new_date);
 
         res.json(pts);
     }

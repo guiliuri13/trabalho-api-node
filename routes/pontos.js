@@ -14,7 +14,7 @@ router.post('/create', function(req, res, next) {
   PontoController.createPonto(req, res)
 });
 
-router.post('/update', function(req, res, next) {
+router.post('/update/:id', function(req, res, next) {
   PontoController.updatePonto(req, res)
 });
 
