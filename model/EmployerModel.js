@@ -3,67 +3,120 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 class EmployerModel {
-    async getAllEmployers() {
-        let employer = await prisma.$queryRaw`
-            SELECT *
-            FROM employer
-        `;
+  async getAllEmployers() {
+    let employer = await prisma.employer.findMany();
 
-        if (employer?.length) {
-            for (let emp of employer) {
-                let employees = await prisma.$queryRaw`SELECT * FROM employee WHERE employer_id = ${emp.id}`;
+    if (employer?.length) {
+      for (let emp of employer) {
+        let employees = await prisma.employee.findMany({
+          where: {
+            employer_id: emp.id,
+          },
+        });
 
-                emp.employees = employees;
-            }
-        }
-
-        return employer;
+        emp.employees = employees;
+      }
     }
 
-    async createEmployer(name, has_hour_base) {
-        let employer = await prisma.$queryRaw`
-            INSERT INTO employer (name, has_hour_base)
-            VALUES (${name}, ${has_hour_base})
-        `;
+    return employer;
+  }
 
-        return employer;
+  async createEmployer(name, has_hour_base) {
+    let employer = await prisma.employer.create({
+      data: {
+        name,
+        has_hour_base,
+      },
+    });
+
+    return employer;
+  }
+
+  async updateEmployer(id, name, has_hour_base) {
+    let employer = await prisma.employer.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        has_hour_base,
+      },
+    });
+
+    return employer;
+  }
+
+  async deleteEmployer(id) {
+    let employer = prisma.employer.delete({
+      where: {
+        id,
+      },
+    });
+
+    return employer;
+  }
+
+  async getEmployer(id) {
+    let employer = await prisma.employer.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (employer?.id) {
+      let employees = await prisma.employee.findMany({
+        where: { employer_id: id },
+      });
+
+      employer.employees = employees;
     }
 
-    async updateEmployer(name, has_hour_base) {
-        let employer = await prisma.$queryRaw`
-            UPDATE employer
-            SET name = ${name}, has_hour_base = ${has_hour_base}
-            WHERE id = ${id}
-        `;
+    return employer;
+  }
 
-        return employer;
+  async getPoints(employer_id, employee_id) {
+    let employees = await prisma.employee.findMany({
+      where: {
+        employer_id,
+      },
+    });
+
+    let points = [];
+
+    if (employees?.length) {
+      for (let employee of employees) {
+        let point = await prisma.pontos.findMany({
+          where: {
+            employee_id: employee.id,
+          },
+        });
+
+        points.push(point);
+      }
     }
 
-    async deleteEmployer(id) {
-        let employer = await prisma.$queryRaw`
-            DELETE FROM employer
-            WHERE id = ${id}
-        `;
+    return points.flat(1);
+  }
 
-        return employer;
-    }
+  async adjustPoint(employee_id, id, date) {
+    await prisma.pontos.updateMany({
+      where: {
+        employee_id,
+        id,
+      },
+      data: {
+        created_at: date,
+      },
+    });
 
-    async getEmployer(id) {
-        let employer = await prisma.$queryRaw`
-            SELECT *
-            FROM employer
-            WHERE id = ${id}
-            LIMIT 1
-        `;
+    let pointsEmployee = await prisma.pontos.findMany({
+      where: {
+        employee_id,
+      },
+    });
 
-        if (employer?.length) {
-            let employees = await prisma.$queryRaw`SELECT * FROM employee WHERE employer_id = ${employer[0].id}`;
-
-            employer[0].employees = employees;
-        }
-
-        return employer;
-    }
+    return pointsEmployee;
+  }
 }
 
 module.exports = new EmployerModel();
