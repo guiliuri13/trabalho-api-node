@@ -44,14 +44,6 @@ class PontoModel {
             WHERE employee_id = ${employee_id}
         `;
 
-        if (pontos?.length) {
-            for (let ponto of pontos) {
-                let employee = await prisma.$queryRaw`SELECT * FROM employee WHERE id = ${ponto.employee_id}`;
-
-                ponto.employee = employee;
-            }
-        }
-
         return pontos;
     }
 
