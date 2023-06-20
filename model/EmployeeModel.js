@@ -12,7 +12,11 @@ class EmployeeModel {
 
 		if (employees?.length) {
 			for (let emp of employees) {
-				let pontos = await prisma.$queryRaw`SELECT * FROM pontos WHERE employee_id = ${emp.id}`;
+				let pontos = await prisma.$queryRaw`
+					SELECT id, location, DATETIME(created_at)
+					FROM Pontos
+					WHERE employee_id = ${emp.id}
+				`;
 				
 				returns.push({ ...emp, pontos });
 			}
@@ -58,7 +62,11 @@ class EmployeeModel {
 		`;
 
 		if (employee?.length) {
-			let pontos = await prisma.$queryRaw`SELECT * FROM pontos WHERE employee_id = ${employee[0].id}`;
+			let pontos = await prisma.$queryRaw`
+				SELECT id, location, DATETIME(created_at)
+				FROM Pontos
+				WHERE employee_id = ${employee[0].id}
+			`;
 
 			employee[0].pontos = pontos;
 		}
