@@ -14,15 +14,15 @@ router.post('/create', function(req, res, next) {
   PontoController.createPonto(req, res)
 });
 
-router.post('/update/:id', function(req, res, next) {
+router.put('/update/:id', function(req, res, next) {
   PontoController.updatePonto(req, res)
 });
 
-router.post('/delete', function(req, res, next) {
+router.delete('/delete', function(req, res, next) {
   PontoController.deletePonto(req, res)
 });
 
-router.post('/get', function(req, res, next) {
+router.get('/get', function(req, res, next) {
   PontoController.getPonto(req, res)
 });
 

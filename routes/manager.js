@@ -18,11 +18,11 @@ router.put('/update', function(req, res, next) {
   ManagerController.updateManager(req, res)
 });
 
-router.post('/delete', function(req, res, next) {
+router.delete('/delete', function(req, res, next) {
   ManagerController.deleteManager(req, res)
 });
 
-router.post('/get', function(req, res, next) {
+router.get('/get', function(req, res, next) {
   ManagerController.getManager(req, res)
 });
 

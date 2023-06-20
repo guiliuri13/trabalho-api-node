@@ -45,6 +45,12 @@ class EmployeeModel {
 	}
 	
 	async deleteEmployee(id) {
+		// delete pontos
+		await prisma.$queryRaw`
+			DELETE FROM pontos
+			WHERE employee_id = ${id}
+		`;
+	
 		let employee = await prisma.$queryRaw`
 			DELETE FROM employee
 			WHERE id = ${id}

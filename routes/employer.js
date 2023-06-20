@@ -10,19 +10,19 @@ router.post("/create", function (req, res, next) {
   EmployerController.createEmployer(req, res);
 });
 
-router.post("/update", function (req, res, next) {
+router.put("/update", function (req, res, next) {
   EmployerController.updateEmployer(req, res);
 });
 
-router.post("/delete", function (req, res, next) {
+router.delete("/delete", function (req, res, next) {
   EmployerController.deleteEmployer(req, res);
 });
 
-router.post("/get", function (req, res, next) {
+router.get("/get", function (req, res, next) {
   EmployerController.getEmployer(req, res);
 });
 
-router.post("/points", function (req, res, next) {
+router.get("/points", function (req, res, next) {
   EmployerController.getPoints(req, res);
 });
 
