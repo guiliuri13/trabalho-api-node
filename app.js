@@ -8,6 +8,7 @@ let cors = require('cors');
 let employeeRouter = require('./routes/employee');
 let employerRouter = require('./routes/employer');
 let pontoRouter = require('./routes/pontos');
+let managerRouter = require('./routes/manager');
 
 let app = express();
 
@@ -26,6 +27,7 @@ app.use(cors(corsOption));
 app.use('/employee', employeeRouter);
 app.use('/employer', employerRouter);
 app.use('/ponto', pontoRouter);
+app.use('/manager', managerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

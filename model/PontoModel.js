@@ -6,26 +6,41 @@ const prisma = new PrismaClient();
 class PontoModel {
     async getAllPontos() {
 		let returns = [];
-		let employees = await prisma.$queryRaw`
-			SELECT *
-			FROM employee
-		`;
-		
-		if (employees?.length) {
-			for (let emp of employees) {
-				let pontos = await prisma.$queryRaw`SELECT * FROM pontos WHERE employee_id = ${emp.id}`;
-				
-				returns.push({ ...emp, pontos });
-			}
-		}
 
-        return returns;
+        try {
+            let employees = await prisma.$queryRaw`
+                SELECT *
+                FROM employee
+            `;
+
+            try {
+                if (employees?.length) {
+                    for (let emp of employees) {
+                        // created at as a date
+                        let pontos = await prisma.$queryRaw`
+                            SELECT id, location, DATETIME(created_at)
+                            FROM Pontos
+                            WHERE employee_id = ${emp.id}
+                        `;
+                        
+                        returns.push({ ...emp, pontos });
+                    }
+                }
+
+                console.log('RETURN', returns);
+                return returns;
+            } catch (error) {
+                throw error;
+            }
+        } catch (error) {
+            throw error;
+        }
     }
 
     async getPontosByEmployee(employee_id) {
         let pontos = await prisma.$queryRaw`
-            SELECT *
-            FROM pontos
+            SELECT id, location, DATETIME(created_at)
+            FROM Pontos
             WHERE employee_id = ${employee_id}
         `;
 
@@ -70,8 +85,8 @@ class PontoModel {
 
     async getPonto(id) {
         let ponto = await prisma.$queryRaw`
-            SELECT *
-            FROM pontos
+            SELECT id, location, DATETIME(created_at)
+            FROM Pontos
             WHERE id = ${id}
             LIMIT 1
         `;

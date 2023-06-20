@@ -9,7 +9,7 @@ class EmployeeModel {
 			SELECT *
 			FROM employee
 		`;
-		
+
 		if (employees?.length) {
 			for (let emp of employees) {
 				let pontos = await prisma.$queryRaw`SELECT * FROM pontos WHERE employee_id = ${emp.id}`;
@@ -17,10 +17,10 @@ class EmployeeModel {
 				returns.push({ ...emp, pontos });
 			}
 		}
-		
+
 		return returns;
 	}
-	
+
 	async createEmployee(name, is_pj, employer_id) {
 		let employee = await prisma.$queryRaw`
 			INSERT INTO employee (name, is_pj, employer_id)
