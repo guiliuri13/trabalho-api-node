@@ -56,10 +56,10 @@ class PontoModel {
         return ponto;
     }
 
-    async updatePonto(location, employee_id) {
+    async updatePonto(location, employee_id, new_date) {
         let ponto = await prisma.$queryRaw`
             UPDATE pontos
-            SET location = ${location}, employee_id = ${employee_id}, created_at = ${DateTime.now().toSQL()}, updated_at = ${DateTime.now().toSQL()}
+            SET location = ${location}, employee_id = ${employee_id}, created_at = ${new_date}, updated_at = ${DateTime.now().toSQL()}
             WHERE id = ${id}
         `;
 
