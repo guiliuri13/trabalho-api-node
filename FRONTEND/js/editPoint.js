@@ -26,7 +26,7 @@ function handleEditPoint(e) {
   const hour = document.getElementById("hour");
 
   fetch(`http://localhost:3000/ponto/update/${point.id}`, {
-    method: "POST",
+    method: "PUT",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json;charset=UTF-8",

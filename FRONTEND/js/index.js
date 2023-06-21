@@ -73,10 +73,10 @@ async function listEmployees() {
       };
 
       editLink.href =
-        "file:///Users/josesanches/Desktop/aulaJs/editEmployee.html";
+        "./editEmployee.html";
       editLink.innerHTML =
         '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16"><path d="M11.646 2.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-9 9a.5.5 0 0 1-.354.146H2.5a.5.5 0 0 1-.5-.5V12a.5.5 0 0 1 .146-.354l9-9z"/><path fill-rule="evenodd" d="M12.854.146a1.5 1.5 0 0 1 2.12 0l1 1a1.5 1.5 0 0 1 0 2.122l-9 9a1.5 1.5 0 0 1-2.122 0l-1-1a1.5 1.5 0 0 1 0-2.122l9-9z"/></svg>';
-      pointLink.href = "file:///Users/josesanches/Desktop/aulaJs/point.html";
+      pointLink.href = "./point.html";
       pointLink.innerHTML = `<svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -173,7 +173,7 @@ async function listManagers() {
       };
 
       editLink.href =
-        "file:///Users/josesanches/Desktop/aulaJs/editManager.html";
+        "C:/Users/guili/Desktop/Dev/trabalho-api-node/FRONTEND/editManager.html";
       editLink.innerHTML =
         '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16"><path d="M11.646 2.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-9 9a.5.5 0 0 1-.354.146H2.5a.5.5 0 0 1-.5-.5V12a.5.5 0 0 1 .146-.354l9-9z"/><path fill-rule="evenodd" d="M12.854.146a1.5 1.5 0 0 1 2.12 0l1 1a1.5 1.5 0 0 1 0 2.122l-9 9a1.5 1.5 0 0 1-2.122 0l-1-1a1.5 1.5 0 0 1 0-2.122l9-9z"/></svg>';
       deleteLink.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
@@ -202,7 +202,7 @@ function deleteEmployee(e) {
   const employee = JSON.parse(localStorage.getItem("employee"));
 
   fetch("http://localhost:3000/employee/delete", {
-    method: "POST",
+    method: "DELETE",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json;charset=UTF-8",
@@ -217,7 +217,7 @@ function deleteManager(e) {
   const employee = JSON.parse(localStorage.getItem("employee"));
 
   fetch("http://localhost:3000/manager/delete", {
-    method: "POST",
+    method: "DELETE",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json;charset=UTF-8",

@@ -20,7 +20,7 @@ function handleEditManager(e) {
   const name = document.getElementById("inputNome");
 
   fetch("http://localhost:3000/employee/update", {
-    method: "POST",
+    method: "PUT",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json;charset=UTF-8",
@@ -28,7 +28,7 @@ function handleEditManager(e) {
     body: JSON.stringify({
       name: name.value,
       id: id.value,
-      is_pj: employee.is_pj,
+      is_pj: false,
     }),
   });
 }

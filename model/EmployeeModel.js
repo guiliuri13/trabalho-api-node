@@ -34,10 +34,10 @@ class EmployeeModel {
 		return employee;
 	}
 	
-	async updateEmployee(id, name, phone) {
+	async updateEmployee(id, name) {
 		let employee = await prisma.$queryRaw`
 			UPDATE employee
-			SET name = ${name}, phone = ${phone}
+			SET name = ${name}
 			WHERE id = ${id}
 		`;
 
