@@ -4,6 +4,10 @@ async function listEmployees() {
   try {
     const response = await fetch("http://localhost:3000/employee/", {
       method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json;charset=UTF-8",
+      },
     });
 
     employees = await response.json();
@@ -110,7 +114,7 @@ async function listManagers() {
   let employees;
 
   try {
-    const response = await fetch("http://localhost:3000/employee/", {
+    const response = await fetch("http://localhost:3000/manager/", {
       method: "GET",
     });
 
@@ -153,7 +157,7 @@ async function listManagers() {
       editLink.setAttribute("class", "icon-link icon-link-hover");
 
       deleteLink.setAttribute("data-bs-toggle", "modal");
-      deleteLink.setAttribute("data-bs-target", "#exampleModal");
+      deleteLink.setAttribute("data-bs-target", "#managerModal");
       deleteLink.setAttribute("class", "icon-link icon-link-hover");
       deleteLink.setAttribute("style", "cursor: pointer");
 
@@ -169,7 +173,7 @@ async function listManagers() {
       };
 
       editLink.href =
-        "file:///Users/josesanches/Desktop/aulaJs/editEmployee.html";
+        "file:///Users/josesanches/Desktop/aulaJs/editManager.html";
       editLink.innerHTML =
         '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16"><path d="M11.646 2.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-9 9a.5.5 0 0 1-.354.146H2.5a.5.5 0 0 1-.5-.5V12a.5.5 0 0 1 .146-.354l9-9z"/><path fill-rule="evenodd" d="M12.854.146a1.5 1.5 0 0 1 2.12 0l1 1a1.5 1.5 0 0 1 0 2.122l-9 9a1.5 1.5 0 0 1-2.122 0l-1-1a1.5 1.5 0 0 1 0-2.122l9-9z"/></svg>';
       deleteLink.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
@@ -192,15 +196,40 @@ async function listManagers() {
   container.appendChild(table);
 }
 
-function deleteEmployee() {
+function deleteEmployee(e) {
+  e.preventDefault();
+
   const employee = JSON.parse(localStorage.getItem("employee"));
 
   fetch("http://localhost:3000/employee/delete", {
     method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    body: JSON.stringify({ id: employee.id }),
+  });
+}
+
+function deleteManager(e) {
+  e.preventDefault();
+
+  const employee = JSON.parse(localStorage.getItem("employee"));
+
+  fetch("http://localhost:3000/manager/delete", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
     body: JSON.stringify({ id: employee.id }),
   });
 }
 
 const confirmDeleteEmployee = document.getElementById("confirm-delete");
 
-confirmDeleteEmployee.onclick = deleteEmployee;
+confirmDeleteEmployee.onclick = (e) => deleteEmployee(e);
+
+const confirmDeleteManager = document.getElementById("confirm-delete-manager");
+
+confirmDeleteManager.onclick = (e) => deleteManager(e);

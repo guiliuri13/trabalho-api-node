@@ -16,20 +16,17 @@ window.onload = () => initialize();
 function handleEditManager(e) {
   e.preventDefault();
 
+  const employee = getEmployee();
   const id = document.getElementById("inputId");
   const name = document.getElementById("inputNome");
 
-  fetch("http://localhost:3000/employee/update", {
-    method: "POST",
+  fetch("http://localhost:3000/manager/update", {
+    method: "PUT",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json;charset=UTF-8",
     },
-    body: JSON.stringify({
-      name: name.value,
-      id: id.value,
-      is_pj: employee.is_pj,
-    }),
+    body: JSON.stringify({ name: name.value, id: employee.id }),
   });
 }
 
